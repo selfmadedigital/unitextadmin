@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from '../_services/authentication.service';
+import {AuthGuard} from '../_helpers/auth.guard';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
   public samplePagesCollapsed = true;
-  constructor() { }
+  constructor(private authGuard: AuthGuard) { }
 
   ngOnInit() {
   }
 
+  isLogged(){
+    if(this.authGuard.canActivate(null,null)){
+      return true;
+    }
+    return false;
+  }
 }

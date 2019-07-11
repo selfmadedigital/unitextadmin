@@ -1,25 +1,17 @@
 /* Navbar */
 
-@import '../../styles';
+@import "../../styles";
 /* Navbar */
 
 .navbar {
   font-family: $type-2;
-  background: $blue-teal-gradient;
-  transition: background $action-transition-duration $action-transition-timing-function;
-  -webkit-transition: background $action-transition-duration $action-transition-timing-function;
-  -moz-transition: background $action-transition-duration $action-transition-timing-function;
-  -ms-transition: background $action-transition-duration $action-transition-timing-function;
+  background: #fff;
   .navbar-brand-wrapper {
-    transition: width $action-transition-duration $action-transition-timing-function, background $action-transition-duration $action-transition-timing-function;
-    -webkit-transition: width $action-transition-duration $action-transition-timing-function, background $action-transition-duration $action-transition-timing-function;
-    -moz-transition: width $action-transition-duration $action-transition-timing-function, background $action-transition-duration $action-transition-timing-function;
-    -ms-transition: width $action-transition-duration $action-transition-timing-function, background $action-transition-duration $action-transition-timing-function;
-    background: $sidebar-light-bg;
+    background: #fff;
     width: $sidebar-width-lg;
     height: $navbar-height;
     .navbar-brand {
-      color: $white;
+      color: $black;
       font-size: 1.5rem;
       line-height: 48px;
       margin-right: 0;
@@ -49,10 +41,14 @@
     }
   }
   .navbar-menu-wrapper {
-    transition: width $action-transition-duration $action-transition-timing-function;
-    -webkit-transition: width $action-transition-duration $action-transition-timing-function;
-    -moz-transition: width $action-transition-duration $action-transition-timing-function;
-    -ms-transition: width $action-transition-duration $action-transition-timing-function;
+    transition: width $action-transition-duration
+      $action-transition-timing-function;
+    -webkit-transition: width $action-transition-duration
+      $action-transition-timing-function;
+    -moz-transition: width $action-transition-duration
+      $action-transition-timing-function;
+    -ms-transition: width $action-transition-duration
+      $action-transition-timing-function;
     color: $white;
     padding-left: 15px;
     padding-right: 15px;
@@ -100,7 +96,7 @@
           }
           &.nav-btn {
             .btn {
-              background: rgba($white, .1);
+              background: rgba($white, 0.1);
               padding: 0.75rem 1rem;
               color: $white;
             }
@@ -152,7 +148,7 @@
   }
 }
 
-@media (max-width:991px) {
+@media (max-width: 991px) {
   .navbar {
     &.default-layout {
       flex-direction: row;
