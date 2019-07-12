@@ -23,12 +23,12 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let service of services_sk">
+                  <tr *ngFor="let service of services.sk">
                     <td class="py-1">
-                      <input type="text" class="form-control" id="title_{{service.id}}" value="{{service.title}}" />
+                      <input type="text" class="form-control" [(ngModel)]="service" value="{{service.title}}" />
                     </td>
                     <td>
-                      <textarea class="form-control" id="content_{{service.id}}" rows="5">{{service.content}}</textarea>
+                      <textarea class="form-control" rows="5">{{service.content}}</textarea>
                     </td>
                     <td>
                       {{service.icon}}
@@ -57,7 +57,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let service of services_cz">
+                  <tr *ngFor="let service of services.cz">
                     <td class="py-1">
                       <input type="text" class="form-control" id="title_{{service.id}}" value="{{service.title}}" />
                     </td>

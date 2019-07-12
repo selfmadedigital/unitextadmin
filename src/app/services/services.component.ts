@@ -8,8 +8,7 @@ import { HttpClient } from "@angular/common/http";
   templateUrl: "./services.component.html"
 })
 export class ServicesComponent implements OnInit {
-  services_sk: Service[];
-  services_cz: Service[];
+  services: [Service[]];
 
   constructor(
     private servicesService: ServicesService,
@@ -17,27 +16,9 @@ export class ServicesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.servicesService.readServicesSK().subscribe((services: Service[]) => {
-      this.services_sk = services;
+    this.servicesService.readServices().subscribe((services: [Service[]]) => {
+      this.services = services;
+      console.log(this.services);
     });
-
-    this.servicesService.readServicesCZ().subscribe((services: Service[]) => {
-      this.services_cz = services;
-    });
-  }
-
-  updateServicesSK(){
-
-  }
-
-  updateServicesCZ(){
-
-  }
-
-  updateService(service: Service) {
-    return this.httpClient.put<Service>(
-      "https://admin.unitext.sk/backend/update_service.php",
-      service
-    );
   }
 }

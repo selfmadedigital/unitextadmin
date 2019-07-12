@@ -9,15 +9,9 @@ import { Service } from "../_models/service";
 export class ServicesService {
   constructor(private httpClient: HttpClient) {}
 
-  readServicesSK(): Observable<Service[]> {
-    return this.httpClient.get<Service[]>(
-      `https://admin.unitext.sk/backend/read_services_sk.php`
-    );
-  }
-
-  readServicesCZ(): Observable<Service[]> {
-    return this.httpClient.get<Service[]>(
-      `https://admin.unitext.sk/backend/read_services_cz.php`
+  readServices(): Observable<[Service[]]> {
+    return this.httpClient.get<[Service[]]>(
+      `https://admin.unitext.sk/backend/read_services.php`
     );
   }
 
