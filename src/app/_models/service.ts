@@ -1,8 +1,7 @@
-export class Service {
+export class ServiceModel {
   id: number;
-  lang: string;
   title: string;
   content: string;
   icon: string;
-  sort: number;
+  lang: string;
 }

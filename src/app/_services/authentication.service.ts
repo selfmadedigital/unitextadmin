@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { User } from "../_models/user";
-import { environment } from "src/environments/environment.prod";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
 
@@ -11,11 +10,15 @@ import { map } from "rxjs/operators";
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
-
+  private user: User;
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem("currentUser"))
     );
+
+    // this.user = new User();
+    // this.user.username = 'test';
+    // this.currentUserSubject.next(this.user);
     this.currentUser = this.currentUserSubject.asObservable();
   }
 

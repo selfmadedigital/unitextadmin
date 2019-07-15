@@ -2,7 +2,7 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <ngb-tabset class="tab-solid tab-solid-danger">
+        <ngb-tabset class="tab-basic">
           <ngb-tab title="SK">
             <span class="flag-icon flag-icon-sk flag-icon-squared"></span>
             <span class="flag-icon flag-icon-gr flag-icon-squared"></span>
@@ -12,26 +12,26 @@
                   <thead>
                   <tr>
                     <th>
+                      Ikona
+                    </th>
+                    <th>
                       Názov
                     </th>
                     <th>
                       Obsah
                     </th>
-                    <th>
-                      Ikona
-                    </th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let service of services.sk">
+                  <tr *ngFor="let service of services | callback: filterSK">
+                    <td>
+                      <i class="fa fa-{{service.icon}}"></i>
+                    </td>
                     <td class="py-1">
-                      <input type="text" class="form-control" [(ngModel)]="service" value="{{service.title}}" />
+                      <input type="text" class="form-control" [(ngModel)]="service.title" />
                     </td>
                     <td>
-                      <textarea class="form-control" rows="5">{{service.content}}</textarea>
-                    </td>
-                    <td>
-                      {{service.icon}}
+                      <textarea class="form-control" rows="5" [(ngModel)]="service.content"></textarea>
                     </td>
                   </tr>
                   </tbody>
@@ -57,15 +57,27 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let service of services.cz">
+                  <tr *ngFor="let service of services | callback: filterCZ">
                     <td class="py-1">
-                      <input type="text" class="form-control" id="title_{{service.id}}" value="{{service.title}}" />
+                      <input type="text" class="form-control" [(ngModel)]="service.title" />
                     </td>
                     <td>
-                      <textarea class="form-control" id="content_{{service.id}}" rows="5">{{service.content}}</textarea>
+                      <textarea class="form-control" rows="5" [(ngModel)]="service.content"></textarea>
                     </td>
                     <td>
-                      {{service.icon}}
+                      <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-warning icon-btn" type="button" id="dropdownMenuIconButton1" ngbDropdownToggle>
+                          <i class="mdi mdi-earth"></i>
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownMenuIconButton1">
+                          <h6 class="dropdown-header">Settings</h6>
+                          <a class="dropdown-item" href="#">Action</a>
+                          <a class="dropdown-item" href="#">Another action</a>
+                          <a class="dropdown-item" href="#">Something else here</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                   </tbody>
@@ -76,7 +88,7 @@
         </ngb-tabset>
       </div>
       <div class="card-footer">
-        <button class="btn btn-success btn-fw" type="button" (click)="updateServicesCZ()">ULOŽIŤ</button>
+        <button type="button" class="btn btn-primary btn-fw  pull-right" (click)="updateServices()">Uložiť</button>
       </div>
     </div>
   </div>

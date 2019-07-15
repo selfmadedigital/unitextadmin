@@ -1,27 +1,41 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/debounceTime";
-import "rxjs/add/operator/distinctUntilChanged";
-import "rxjs/add/operator/merge";
-import "rxjs/add/operator/filter";
-import { TextsService } from "../_services/texts.service";
+import { Component, OnInit } from '@angular/core';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/merge';
+import 'rxjs/add/operator/filter';
+import { TextsService } from '../_services/texts.service';
+import { TextModel } from '../_models/text';
+import { ResponseModel } from '../_models/response';
 
 @Component({
-  selector: "app-texts",
-  templateUrl: "./texts.component.html"
+  selector: 'app-texts',
+  templateUrl: './texts.component.html'
 })
 export class TextsComponent implements OnInit {
-  texts_sk: Text[];
-  texts_cz: Text[];
+  texts: TextModel[];
 
   constructor(private textsService: TextsService) {}
 
-  ngOnInit() {
-    this.textsService.getTexts().subscribe((texts: Text[]) => {
-      this.texts_sk = texts["sk"];
-      this.texts_cz = texts["cz"];
+  filterSK(text: TextModel) {
+    return text.lang === 'sk';
+  }
 
-      console.log(this.texts_cz);
+  filterCZ(text: TextModel) {
+    return text.lang === 'cz';
+  }
+
+  ngOnInit() {
+    this.textsService.readTexts().subscribe((texts: TextModel[]) => {
+      this.texts = texts;
+    });
+  }
+
+  updateTexts() {
+    this.textsService.updateTexts(this.texts).subscribe((resp: ResponseModel) => {
+      if (resp.status === 'ok') {
+        console.log(resp);
+      }
     });
   }
 }

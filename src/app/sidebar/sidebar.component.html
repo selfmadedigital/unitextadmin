@@ -4,10 +4,10 @@
       <div class="nav-link">
         <div class="user-wrapper">
           <div class="profile-image">
-            <img src="assets/images/faces/face1.jpg" alt="profile image" />
+            <img src="assets/images/faces-clipart/pic-3.png" alt="profile image" />
           </div>
           <div class="text-wrapper">
-            <p class="profile-name">Prihlaseny uzivatel</p>
+            <p class="profile-name">{{currentUser}}</p>
             <div>
               <a>
                 <small class="designation text-muted">Odhlásiť</small>
@@ -24,14 +24,20 @@
       </a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" routerLink="/menu" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-view-list"></i>
+        <span class="menu-title">Menu</span>
+      </a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" routerLink="/texts" routerLinkActive="active">
-        <i class="menu-icon mdi mdi-notification-clear-all"></i>
+        <i class="menu-icon mdi mdi-format-text"></i>
         <span class="menu-title">Texty</span>
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link" routerLink="/services" routerLinkActive="active">
-        <i class="menu-icon mdi mdi-notification-clear-all"></i>
+        <i class="menu-icon mdi mdi-format-list-bulleted"></i>
         <span class="menu-title">Služby</span>
       </a>
     </li>
@@ -42,9 +48,21 @@
       </a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" routerLink="/partners" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-account-box-outline"></i>
+        <span class="menu-title">Partneri</span>
+      </a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" routerLink="/prices" routerLinkActive="active">
         <i class="menu-icon mdi mdi-currency-eur"></i>
         <span class="menu-title">Cenník</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/contact" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-phone"></i>
+        <span class="menu-title">Kontakt</span>
       </a>
     </li>
   </ul>

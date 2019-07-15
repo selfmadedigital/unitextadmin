@@ -32,6 +32,12 @@ import { ErrorInterceptor } from "./_helpers/error.interceptor";
 import { BasicAuthInterceptor } from "./_helpers/basic-auth.interceptor";
 import { fakeBackendProvider } from "./_helpers/fake.backend";
 import { HomeComponent } from './home/home.component';
+import { CallbackPipe } from './callback.pipe';
+import { UiSwitchModule } from 'ngx-toggle-switch';
+import { PricesComponent } from './prices/prices.component';
+import { MenuComponent } from './menu/menu.component';
+import { PartnersComponent } from './partners/partners.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -57,16 +63,22 @@ import { HomeComponent } from './home/home.component';
     TabsComponent,
     ServicesComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    CallbackPipe,
+    PricesComponent,
+    MenuComponent,
+    PartnersComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
     RouterModule,
     AppRoutingModule,
     FormsModule,
-    NgbModule.forRoot(),
+    NgbModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UiSwitchModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },

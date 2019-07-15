@@ -5,14 +5,14 @@
       <form class="forms-sample ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="username">Užívateľ</label>
-          <input class="form-control" id="username" formControlName="username" placeholder="Užívateľské meno" type="text" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
+          <input class="form-control" id="username"placeholder="Užívateľské meno" type="text" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
           <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
             <div *ngIf="f.username.errors.required">Username is required</div>
           </div>
         </div>
         <div class="form-group">
           <label for="password">Heslo</label>
-          <input class="form-control" id="password" placeholder="Heslo" formControlName="password" type="password" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/></div>
+          <input class="form-control" id="password" placeholder="Heslo" type="password" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/></div>
         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
           <div *ngIf="f.password.errors.required">Password is required</div>
         </div>
