@@ -9,22 +9,31 @@ import { AuthenticationService } from "../_services/authentication.service";
 
 @Injectable({ providedIn: "root" })
 export class AuthGuard implements CanActivate {
-  constructor(
-    private router: Router,
-    private authenticationService: AuthenticationService
-  ) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const currentUser = this.authenticationService.currentUserValue;
-    if (currentUser) {
+  constructor (private authService: AuthenticationService,
+               private router: Router) {
+    let routerStateSnapshot = this.router.routerState.snapshot;
+
+  }
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): boolean {
+    const url: string = state.url;
+    return this.checkLogin(url);
+  }
+
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    return this.canActivate(route, state);
+  }
+
+  checkLogin(url: string) {
+    if (this.authService.isLoggedIn()) {
       return true;
     }
 
-    this.router.navigate(["/login"], { queryParams: { returnUrl: state.url } });
-    return false;
-  }
+    this.authService.redirectUrl = url;
 
-  canActivate2(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return true;
+    this.router.navigate(['/login'], {queryParams: { returnUrl: url }} );
   }
 }

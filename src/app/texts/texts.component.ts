@@ -7,6 +7,7 @@ import 'rxjs/add/operator/filter';
 import { TextsService } from '../_services/texts.service';
 import { TextModel } from '../_models/text';
 import { ResponseModel } from '../_models/response';
+import {NotificationService} from '../_services/notification.service';
 
 @Component({
   selector: 'app-texts',
@@ -15,7 +16,8 @@ import { ResponseModel } from '../_models/response';
 export class TextsComponent implements OnInit {
   texts: TextModel[];
 
-  constructor(private textsService: TextsService) {}
+  constructor(private textsService: TextsService,
+              private notificationService: NotificationService) {}
 
   filterSK(text: TextModel) {
     return text.lang === 'sk';
@@ -34,7 +36,12 @@ export class TextsComponent implements OnInit {
   updateTexts() {
     this.textsService.updateTexts(this.texts).subscribe((resp: ResponseModel) => {
       if (resp.status === 'ok') {
-        console.log(resp);
+        this.notificationService.success('Texty boli aktualizované');
+      }else{
+        this.notificationService.error('Niečo sa pokazilo! Výpis chýb:');
+        resp.errors.forEach(value => {
+          this.notificationService.error(value);
+        })
       }
     });
   }

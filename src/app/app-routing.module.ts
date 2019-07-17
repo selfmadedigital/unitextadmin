@@ -23,10 +23,10 @@ const routes: Routes = [
   { path: "reviews", component: ReviewsComponent, canActivate: [AuthGuard] },
   { path: "services", component: ServicesComponent, canActivate: [AuthGuard] },
   { path: "prices", component: PricesComponent, canActivate: [AuthGuard] },
+  { path: "menu", component: MenuComponent, canActivate: [AuthGuard] },
+  { path: "partners", component: PartnersComponent, canActivate: [AuthGuard] },
+  { path: "contact", component: ContactComponent, canActivate: [AuthGuard] },
   { path: "login", component: LoginComponent },
-  { path: "menu", component: MenuComponent },
-  { path: "partners", component: PartnersComponent },
-  { path: "contact", component: ContactComponent },
 
   { path: '**', redirectTo: '' }
 

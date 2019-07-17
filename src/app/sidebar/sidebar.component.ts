@@ -8,19 +8,21 @@ import {AuthGuard} from '../_helpers/auth.guard';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  constructor(private authGuard: AuthGuard, private authService: AuthenticationService) { }
 
-  ngOnInit() {
+  username: string;
+
+  constructor(private authGuard: AuthGuard, private authService: AuthenticationService) {
   }
 
-  get currentUser() {
-    return this.authService.currentUserValue.username;
+  ngOnInit(): void {
   }
 
-  isLogged(){
-    if(this.authGuard.canActivate(null,null)){
-      return true;
-    }
-    return false;
+  isLogged() {
+    return this.authService.isLoggedIn();
+  }
+
+  logout() {
+    this.authService.logout();
+    location.reload();
   }
 }

@@ -3,6 +3,7 @@ import { TextModel } from '../_models/text';
 import { LinkModel } from '../_models/link';
 import { MenuService } from '../_services/menu.service';
 import { ResponseModel } from '../_models/response';
+import {NotificationService} from '../_services/notification.service';
 
 @Component({
   selector: 'app-menu',
@@ -12,7 +13,8 @@ import { ResponseModel } from '../_models/response';
 export class MenuComponent implements OnInit {
   links: LinkModel[];
 
-  constructor(private menuService: MenuService) {
+  constructor(private menuService: MenuService,
+              private notificationService: NotificationService) {
   }
 
   filterSK(text: TextModel) {
@@ -32,7 +34,12 @@ export class MenuComponent implements OnInit {
   updateMenu() {
     this.menuService.updateMenu(this.links).subscribe((resp: ResponseModel) => {
       if (resp.status === 'ok') {
-        console.log(resp);
+        this.notificationService.success('Menu bolo aktualizované');
+      }else{
+        this.notificationService.error('Niečo sa pokazilo! Výpis chýb:');
+        resp.errors.forEach(value => {
+          this.notificationService.error(value);
+        })
       }
     });
   }

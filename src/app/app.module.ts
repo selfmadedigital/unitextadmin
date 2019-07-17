@@ -28,9 +28,6 @@ import { CarouselComponent } from "./carousel/carousel.component";
 import { TabsComponent } from "./tabs/tabs.component";
 import { ServicesComponent } from "./services/services.component";
 import { LoginComponent } from "./login/login.component";
-import { ErrorInterceptor } from "./_helpers/error.interceptor";
-import { BasicAuthInterceptor } from "./_helpers/basic-auth.interceptor";
-import { fakeBackendProvider } from "./_helpers/fake.backend";
 import { HomeComponent } from './home/home.component';
 import { CallbackPipe } from './callback.pipe';
 import { UiSwitchModule } from 'ngx-toggle-switch';
@@ -38,6 +35,9 @@ import { PricesComponent } from './prices/prices.component';
 import { MenuComponent } from './menu/menu.component';
 import { PartnersComponent } from './partners/partners.component';
 import { ContactComponent } from './contact/contact.component';
+import { NotificationComponent } from './_helpers/notification/notification.component';
+import {NotificationService} from './_services/notification.service';
+import {ImageUploadModule} from 'angular2-image-upload';
 
 @NgModule({
   declarations: [
@@ -68,7 +68,8 @@ import { ContactComponent } from './contact/contact.component';
     PricesComponent,
     MenuComponent,
     PartnersComponent,
-    ContactComponent
+    ContactComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -78,12 +79,11 @@ import { ContactComponent } from './contact/contact.component';
     NgbModule,
     HttpClientModule,
     ReactiveFormsModule,
-    UiSwitchModule
+    UiSwitchModule,
+    ImageUploadModule.forRoot(),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    fakeBackendProvider
+    NotificationService,
   ],
   bootstrap: [AppComponent]
 })

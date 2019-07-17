@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServiceModel } from '../_models/service';
 import { ServicesService } from '../_services/services.service';
 import { ResponseModel } from '../_models/response';
+import {NotificationService} from '../_services/notification.service';
 
 @Component({
   selector: 'app-services',
@@ -11,7 +12,8 @@ export class ServicesComponent implements OnInit {
   services: ServiceModel[];
 
   constructor(
-    private servicesService: ServicesService
+    private servicesService: ServicesService,
+    private notificationService: NotificationService
   ) {}
 
   filterSK(service: ServiceModel) {
@@ -32,7 +34,12 @@ export class ServicesComponent implements OnInit {
   updateServices() {
     this.servicesService.updateServices(this.services).subscribe((resp: ResponseModel) => {
       if (resp.status === 'ok') {
-        console.log(resp);
+        this.notificationService.success('Služby boli aktualizované');
+      }else{
+        this.notificationService.error('Niečo sa pokazilo! Výpis chýb:');
+        resp.errors.forEach(value => {
+          this.notificationService.error(value);
+        })
       }
     });
   }

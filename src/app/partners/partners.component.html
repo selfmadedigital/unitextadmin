@@ -7,10 +7,10 @@
             <thead>
             <tr>
               <th>
-                Názov
+                Logo
               </th>
               <th>
-                Logo
+                Názov
               </th>
               <th>
                 Odkaz
@@ -20,10 +20,10 @@
             <tbody>
             <tr *ngFor="let partner of partners">
               <td class="py-1">
-                {{partner.name}}
+                <img src={{partner.image}} />
               </td>
               <td class="py-1">
-                <img src={{partner.image}} />
+                <input type="text" class="form-control" [(ngModel)]="partner.name" />
               </td>
               <td class="py-1">
                 <input type="text" class="form-control" [(ngModel)]="partner.href" />
@@ -32,6 +32,10 @@
             </tbody>
           </table>
         </div>
+      </div>
+      <div class="card-footer">
+        <image-upload (uploadFinished)="onUploadFinished($event)" [uploadedFiles]="images"></image-upload>
+        <button class="btn btn-primary btn-fw" type="button" (click)="updatePartners()">Uložiť</button>
       </div>
     </div>
   </div>

@@ -1,64 +1,49 @@
-import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { first } from "rxjs/operators";
-import { AuthenticationService } from "../_services/authentication.service";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import {AuthenticationService} from '../_services/authentication.service';
 
-@Component({ templateUrl: "login.component.html" })
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+})
 export class LoginComponent implements OnInit {
+
   loginForm: FormGroup;
-  loading = false;
   submitted = false;
   returnUrl: string;
-  error = "";
+  error: {};
+  loginError: string;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
+    private fb: FormBuilder,
     private router: Router,
-    private authenticationService: AuthenticationService
-  ) {
-    // redirect to home if already logged in
-    if (this.authenticationService.currentUserValue) {
-      this.router.navigate(["/"]);
-    }
-  }
+    private authService: AuthenticationService
+  ) { }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      username: ["", Validators.required],
-      password: ["", Validators.required]
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
 
-    // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
+    this.authService.logout();
   }
 
-  // convenience getter for easy access to form fields
-  get f() {
-    return this.loginForm.controls;
-  }
+  get username() { return this.loginForm.get('username'); }
+  get password() { return this.loginForm.get('password'); }
 
   onSubmit() {
     this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.loginForm.invalid) {
-      return;
-    }
-
-    this.loading = true;
-    this.authenticationService
-      .login(this.f.username.value, this.f.password.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate([this.returnUrl]);
-        },
-        error => {
-          this.error = error;
-          this.loading = false;
+    this.authService.login(this.username.value, this.password.value).subscribe((data) => {
+        if (this.authService.isLoggedIn) {
+          const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/dashboard';
+          this.router.navigate([redirect]);
+        } else {
+          this.loginError = 'Username or password is incorrect.';
         }
-      );
+      },
+      error => this.error = error
+    );
   }
 }

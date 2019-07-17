@@ -512,6 +512,9 @@ Apache-2.0
 ngx-toggle-switch
 MIT
 
+angular2-image-upload
+MIT
+
 zone.js
 MIT
 The MIT License

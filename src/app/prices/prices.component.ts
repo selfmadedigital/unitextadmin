@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PriceModel } from '../_models/price';
 import { PricesService } from '../_services/prices.service';
 import { ResponseModel } from '../_models/response';
+import {NotificationService} from '../_services/notification.service';
 
 @Component({
   selector: 'app-prices',
@@ -13,7 +14,8 @@ export class PricesComponent implements OnInit {
   prices: PriceModel[];
 
   constructor(
-    private pricesService: PricesService
+    private pricesService: PricesService,
+    private notificationService: NotificationService
   ) {}
 
   filterSK(price: PriceModel) {
@@ -27,14 +29,18 @@ export class PricesComponent implements OnInit {
   ngOnInit() {
     this.pricesService.readPrices().subscribe((prices: PriceModel[]) => {
       this.prices = prices;
-      console.log(this.prices);
     });
   }
 
   updatePrices() {
     this.pricesService.updatePrices(this.prices).subscribe((resp: ResponseModel) => {
       if (resp.status === 'ok') {
-        console.log(resp);
+        this.notificationService.success('Ceny boli aktualizované');
+      }else{
+        this.notificationService.error('Niečo sa pokazilo! Výpis chýb:');
+        resp.errors.forEach(value => {
+          this.notificationService.error(value);
+        })
       }
     });
   }

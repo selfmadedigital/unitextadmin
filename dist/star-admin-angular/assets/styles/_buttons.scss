@@ -167,3 +167,25 @@
     @include button-inverse-variant($value);
   }
 }
+
+.img-ul-button{
+  font-size: 0.875rem;
+  line-height: 1;
+  font-family: "Poppins", sans-serif;
+  color: #212529;
+  background-color: #c0bb62;
+  border-color: #c0bb62;
+  display: inline-block;
+  font-weight: 400;
+  color: #212529;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.56rem 1.375rem;
+  font-size: 0.875rem;
+  line-height: 1;
+  border-radius: 0.1875rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
