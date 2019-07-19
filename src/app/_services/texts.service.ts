@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { TextModel } from '../_models/text';
+import {ResponseModel} from '../_models/response';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +12,13 @@ export class TextsService {
   constructor(private httpClient: HttpClient) {}
 
   readTexts(): Observable<TextModel[]> {
-    return this.httpClient.get<TextModel[]>(
-      'https://admin.unitext.sk/backend/read_texts.php'
-    );
+    return this.httpClient.get<TextModel[]>(environment.apiUrl + '/content/')
   }
 
-  updateTexts(texts: TextModel[]) {
-    return this.httpClient.post('https://admin.unitext.sk/backend/update_texts.php', texts);
+  updateText(text: TextModel): Observable<ResponseModel> {
+    return this.httpClient.post<ResponseModel>(
+      environment.apiUrl + '/content/', text
+    )
   }
+
 }

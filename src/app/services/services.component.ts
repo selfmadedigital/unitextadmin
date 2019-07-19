@@ -10,6 +10,7 @@ import {NotificationService} from '../_services/notification.service';
 })
 export class ServicesComponent implements OnInit {
   services: ServiceModel[];
+  errors: Array<Error> = [];
 
   constructor(
     private servicesService: ServicesService,
@@ -32,15 +33,19 @@ export class ServicesComponent implements OnInit {
   }
 
   updateServices() {
-    this.servicesService.updateServices(this.services).subscribe((resp: ResponseModel) => {
-      if (resp.status === 'ok') {
-        this.notificationService.success('Služby boli aktualizované');
-      }else{
-        this.notificationService.error('Niečo sa pokazilo! Výpis chýb:');
-        resp.errors.forEach(value => {
-          this.notificationService.error(value);
-        })
-      }
+    this.services.forEach(service => {
+      this.servicesService.updateService(service).subscribe((resp) => {
+        if (!resp.success) {
+          this.errors.push(resp.error);
+        }
+      });
     });
+    if (this.errors.length === 0){
+      this.notificationService.success('Služby boli aktualizované');
+    } else{
+      this.errors.forEach(value => {
+        this.notificationService.error(value.message);
+      })
+    }
   }
 }

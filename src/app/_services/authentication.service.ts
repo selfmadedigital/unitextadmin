@@ -5,6 +5,8 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
 import {ResponseModel} from '../_models/response';
 import {Router} from '@angular/router';
+import {TextModel} from '../_models/text';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: "root"
@@ -12,12 +14,12 @@ import {Router} from '@angular/router';
 export class AuthenticationService {
   errorData: {};
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private httpClient: HttpClient, private router: Router) { }
 
   redirectUrl: string;
 
   login(username: string, password: string) {
-    return this.http.post<any>('https://admin.unitext.sk/backend/authenticate_user.php', {username: username, password: password})
+    return this.httpClient.post<User>(environment.apiUrl + '/user/', {username: username, password: password})
       .pipe(map(user => {
           if (user && user.token) {
             localStorage.setItem('currentUser', JSON.stringify(user));

@@ -15,9 +15,12 @@ import {NotificationService} from '../_services/notification.service';
 })
 export class TextsComponent implements OnInit {
   texts: TextModel[];
+  errors: Array<Error> = [];
+
 
   constructor(private textsService: TextsService,
               private notificationService: NotificationService) {}
+
 
   filterSK(text: TextModel) {
     return text.lang === 'sk';
@@ -34,15 +37,19 @@ export class TextsComponent implements OnInit {
   }
 
   updateTexts() {
-    this.textsService.updateTexts(this.texts).subscribe((resp: ResponseModel) => {
-      if (resp.status === 'ok') {
-        this.notificationService.success('Texty boli aktualizované');
-      }else{
-        this.notificationService.error('Niečo sa pokazilo! Výpis chýb:');
-        resp.errors.forEach(value => {
-          this.notificationService.error(value);
-        })
-      }
+    this.texts.forEach(text => {
+      this.textsService.updateText(text).subscribe((resp) => {
+        if (!resp.success) {
+          this.errors.push(resp.error);
+        }
+      });
     });
+    if (this.errors.length === 0){
+      this.notificationService.success('Texty boli aktualizované');
+    } else{
+      this.errors.forEach(value => {
+        this.notificationService.error(value.message);
+      })
+    }
   }
 }

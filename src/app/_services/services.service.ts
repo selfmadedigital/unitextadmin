@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { ServiceModel } from '../_models/service';
 import { LinkModel } from '../_models/link';
 import { ResponseModel } from '../_models/response';
+import {TextModel} from '../_models/text';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +14,12 @@ export class ServicesService {
   constructor(private httpClient: HttpClient) {}
 
   readServices(): Observable<ServiceModel[]> {
-    return this.httpClient.get<ServiceModel[]>(
-      `https://admin.unitext.sk/backend/read_services.php`
-    );
+    return this.httpClient.get<ServiceModel[]>(environment.apiUrl + '/services/')
   }
 
-  updateServices(services: ServiceModel[]): Observable<ResponseModel> {
+  updateService(service: ServiceModel): Observable<ResponseModel> {
     return this.httpClient.post<ResponseModel>(
-      'https://admin.unitext.sk/backend/update_services.php', services
-    );
+      environment.apiUrl + '/services/', service
+    )
   }
 }

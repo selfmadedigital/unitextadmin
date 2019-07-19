@@ -12,6 +12,7 @@ import {NotificationService} from '../_services/notification.service';
 export class PricesComponent implements OnInit {
 
   prices: PriceModel[];
+  errors: Array<Error> = [];
 
   constructor(
     private pricesService: PricesService,
@@ -33,15 +34,19 @@ export class PricesComponent implements OnInit {
   }
 
   updatePrices() {
-    this.pricesService.updatePrices(this.prices).subscribe((resp: ResponseModel) => {
-      if (resp.status === 'ok') {
-        this.notificationService.success('Ceny boli aktualizované');
-      }else{
-        this.notificationService.error('Niečo sa pokazilo! Výpis chýb:');
-        resp.errors.forEach(value => {
-          this.notificationService.error(value);
-        })
-      }
+    this.prices.forEach(price => {
+      this.pricesService.updatePrice(price).subscribe((resp) => {
+        if (!resp.success) {
+          this.errors.push(resp.error);
+        }
+      });
     });
+    if (this.errors.length === 0){
+      this.notificationService.success('Ceny boli aktualizované');
+    } else{
+      this.errors.forEach(value => {
+        this.notificationService.error(value.message);
+      })
+    }
   }
 }

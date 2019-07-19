@@ -12,6 +12,7 @@ import {NotificationService} from '../_services/notification.service';
 })
 export class MenuComponent implements OnInit {
   links: LinkModel[];
+  errors: Array<Error> = [];
 
   constructor(private menuService: MenuService,
               private notificationService: NotificationService) {
@@ -32,15 +33,19 @@ export class MenuComponent implements OnInit {
   }
 
   updateMenu() {
-    this.menuService.updateMenu(this.links).subscribe((resp: ResponseModel) => {
-      if (resp.status === 'ok') {
-        this.notificationService.success('Menu bolo aktualizované');
-      }else{
-        this.notificationService.error('Niečo sa pokazilo! Výpis chýb:');
-        resp.errors.forEach(value => {
-          this.notificationService.error(value);
-        })
-      }
+    this.links.forEach(link => {
+      this.menuService.updateMenu(link).subscribe((resp) => {
+        if (!resp.success) {
+          this.errors.push(resp.error);
+        }
+      });
     });
+    if (this.errors.length === 0){
+      this.notificationService.success('Menu bolo aktualizované');
+    } else{
+      this.errors.forEach(value => {
+        this.notificationService.error(value.message);
+      })
+    }
   }
 }

@@ -1,4 +1,4 @@
 export class ResponseModel {
-  status: string;
-  errors: string[];
+  success: boolean;
+  error: Error;
 }

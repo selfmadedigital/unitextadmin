@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PartnerModel } from '../_models/partner';
 import { PartnersService } from '../_services/partners.service';
-import { ResponseModel } from '../_models/response';
-import {FileHolder} from 'angular2-image-upload';
 import {NotificationService} from '../_services/notification.service';
+import {FileUploader} from 'ng2-file-upload';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-partners',
@@ -13,8 +13,8 @@ import {NotificationService} from '../_services/notification.service';
 export class PartnersComponent implements OnInit {
 
   partners: PartnerModel[];
-  partner: PartnerModel;
-  images = new Array();
+  errors: Array<Error> = [];
+  public uploader:FileUploader = new FileUploader({url: environment.apiUrl + '/upload/', itemAlias: 'photo'});
 
   constructor(private partnersService: PartnersService,
               private notificationService: NotificationService) {
@@ -25,27 +25,29 @@ export class PartnersComponent implements OnInit {
     this.partnersService.readPartners().subscribe((partners: PartnerModel[]) => {
       this.partners = partners;
     });
+
+    this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; };
+    //overide the onCompleteItem property of the uploader so we are
+    //able to deal with the server response.
+    this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+      console.log("ImageUpload:uploaded:", item, status, response);
+    };
   }
 
   updatePartners() {
-    this.partnersService.updatePartners(this.partners).subscribe((resp: ResponseModel) => {
-      if (resp.status === 'ok') {
-        this.notificationService.success('Partneri boli aktualizovaní');
-      }else{
-        this.notificationService.error('Niečo sa pokazilo! Výpis chýb:');
-        resp.errors.forEach(value => {
-          this.notificationService.error(value);
-        })
-      }
+    this.partners.forEach(partner => {
+      this.partnersService.updatePartner(partner).subscribe((resp) => {
+        if (!resp.success) {
+          this.errors.push(resp.error);
+        }
+      });
     });
-  }
-
-  onUploadFinished(file: FileHolder) {
-    this.partner = new PartnerModel();
-    this.partner.image = 'https://www.solodev.com/assets/carousel/image8.png';
-    this.partner.href = '';
-    this.partner.name = '';
-    this.partners.push(this.partner);
-    console.log(this.partners);
+    if (this.errors.length === 0){
+      this.notificationService.success('Partneri boli aktualizovaní');
+    } else{
+      this.errors.forEach(value => {
+        this.notificationService.error(value.message);
+      })
+    }
   }
 }

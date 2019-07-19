@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { LinkModel } from '../_models/link';
 import { HttpClient } from '@angular/common/http';
 import { ResponseModel } from '../_models/response';
+import {TextModel} from '../_models/text';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +14,12 @@ export class MenuService {
   constructor(private httpClient: HttpClient) { }
 
   readMenu(): Observable<LinkModel[]> {
-    return this.httpClient.get<LinkModel[]>(
-      'https://admin.unitext.sk/backend/read_menu.php'
-    );
+    return this.httpClient.get<LinkModel[]>(environment.apiUrl + '/menu/');
   }
 
-  updateMenu(menu: LinkModel[]): Observable<ResponseModel> {
+  updateMenu(menu: LinkModel): Observable<ResponseModel> {
     return this.httpClient.post<ResponseModel>(
-      'https://admin.unitext.sk/backend/update_menu.php', menu
-    );
+      environment.apiUrl + '/menu/', menu
+    )
   }
 }

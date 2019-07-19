@@ -34,8 +34,25 @@
         </div>
       </div>
       <div class="card-footer">
-        <image-upload (uploadFinished)="onUploadFinished($event)" [uploadedFiles]="images"></image-upload>
         <button class="btn btn-primary btn-fw" type="button" (click)="updatePartners()">Uložiť</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <input type="file" class="form-control" name="photo" ng2FileSelect [uploader]="uploader" />
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-primary btn-fw"
+                (click)="uploader.uploadAll()"
+                [disabled]="!uploader.getNotUploadedItems().length">
+          Nahrať logo
+        </button>
       </div>
     </div>
   </div>
