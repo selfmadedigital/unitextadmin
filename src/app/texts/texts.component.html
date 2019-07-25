@@ -6,16 +6,16 @@
           <ngb-tab title="SK">
             <ng-template ngbTabContent>
               <div class="form-group" *ngFor="let text of texts | callback: filterSK">
-                <label for="input_{{text.id}}">{{text.section}}</label>
-                <input id="input_{{text.id}}" type="text" class="form-control" [(ngModel)]="text.content" />
+                <label for="input_sk_{{text.id}}">{{text.section}}</label>
+                <input id="input_sk_{{text.id}}" type="text" class="form-control" [(ngModel)]="text.content" #content="ngModel" required maxlength="3000" [class.border-danger]="content.invalid && (content.dirty || content.touched)" />
               </div>
             </ng-template>
           </ngb-tab>
           <ngb-tab title="CZ">
             <ng-template ngbTabContent>
               <div class="form-group" *ngFor="let text of texts | callback: filterCZ">
-                <label for="input_{{text.id}}">{{text.section}}</label>
-                <input id="input_{{text.id}}" type="text" class="form-control" [(ngModel)]="text.content" />
+                <label for="input_cz_{{text.id}}">{{text.section}}</label>
+                <input id="input_cz_{{text.id}}" type="text" class="form-control" [(ngModel)]="text.content" #content="ngModel" required maxlength="3000" [class.border-danger]="content.invalid && (content.dirty || content.touched)" />
               </div>
             </ng-template>
           </ngb-tab>

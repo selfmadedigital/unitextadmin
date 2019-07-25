@@ -24,14 +24,14 @@
                   </thead>
                   <tbody>
                   <tr *ngFor="let service of services | callback: filterSK">
-                    <td>
-                      <i class="fa fa-{{service.icon}}"></i>
+                    <td class="text-center">
+                      <i class="icon icon-{{service.icon}}" style="font-size: 200%;"></i>
                     </td>
                     <td class="py-1">
-                      <input type="text" class="form-control" [(ngModel)]="service.title" />
+                      <input type="text" class="form-control" [(ngModel)]="service.title" #title="ngModel" required maxlength="300" [class.border-danger]="title.invalid && (title.dirty || title.touched)" />
                     </td>
                     <td>
-                      <textarea class="form-control" rows="5" [(ngModel)]="service.content"></textarea>
+                      <textarea class="form-control" rows="5" [(ngModel)]="service.content" #content="ngModel" required maxlength="3000" [class.border-danger]="content.invalid && (content.dirty || content.touched)"></textarea>
                     </td>
                   </tr>
                   </tbody>
@@ -46,38 +46,26 @@
                   <thead>
                   <tr>
                     <th>
+                      Ikona
+                    </th>
+                    <th>
                       Názov
                     </th>
                     <th>
                       Obsah
                     </th>
-                    <th>
-                      Ikona
-                    </th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let service of services | callback: filterCZ">
+                  <tr *ngFor="let service of services | callback: filterCZ" cdkDrag>
+                    <td class="text-center">
+                      <i class="icon icon-{{service.icon}}" style="font-size: 200%;"></i>
+                    </td>
                     <td class="py-1">
-                      <input type="text" class="form-control" [(ngModel)]="service.title" />
+                      <input type="text" class="form-control" [(ngModel)]="service.title" #title="ngModel" required maxlength="300" [class.border-danger]="title.invalid && (title.dirty || title.touched)" />
                     </td>
                     <td>
-                      <textarea class="form-control" rows="5" [(ngModel)]="service.content"></textarea>
-                    </td>
-                    <td>
-                      <div ngbDropdown class="d-inline-block">
-                        <button class="btn btn-warning icon-btn" type="button" id="dropdownMenuIconButton1" ngbDropdownToggle>
-                          <i class="mdi mdi-earth"></i>
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownMenuIconButton1">
-                          <h6 class="dropdown-header">Settings</h6>
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-                      </div>
+                      <textarea class="form-control" rows="5" [(ngModel)]="service.content" #content="ngModel" required maxlength="3000" [class.border-danger]="content.invalid && (content.dirty || content.touched)"></textarea>
                     </td>
                   </tr>
                   </tbody>

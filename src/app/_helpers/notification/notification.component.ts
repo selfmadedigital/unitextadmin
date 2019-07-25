@@ -10,6 +10,7 @@ import {NotificationService} from '../../_services/notification.service';
 export class NotificationComponent implements OnInit {
 
   notifications: Notification[] = [];
+  timer;
 
   constructor(private alertService: NotificationService) { }
 
@@ -23,6 +24,11 @@ export class NotificationComponent implements OnInit {
 
       // add alert to array
       this.notifications.push(notification);
+      setTimeout(()=>{
+        if(this.notifications && this.notifications.length > 0){
+          this.notifications.shift();
+        }
+      },500000);
     });
   }
 

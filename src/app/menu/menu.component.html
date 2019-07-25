@@ -25,7 +25,7 @@
                         {{link.href}}
                       </td>
                       <td class="py-1">
-                        <input type="text" class="form-control" [(ngModel)]="link.text" />
+                        <input type="text" class="form-control" [(ngModel)]="link.text" #text="ngModel" required maxlength="100" [class.border-danger]="text.invalid && (text.dirty || text.touched)" />
                       </td>
                     </tr>
                   </tbody>
@@ -53,7 +53,7 @@
                         {{link.href}}
                       </td>
                       <td class="py-1">
-                        <input type="text" class="form-control" [(ngModel)]="link.text" />
+                        <input type="text" class="form-control" [(ngModel)]="link.text" #text="ngModel" required maxlength="100" [class.border-danger]="text.invalid && (text.dirty || text.touched)" />
                       </td>
                     </tr>
                   </tbody>

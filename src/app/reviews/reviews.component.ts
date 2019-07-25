@@ -1,5 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { ViewEncapsulation } from "@angular/core";
+import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
+import {ServiceModel} from '../_models/service';
+import {ReviewModel} from '../_models/review';
+import {HttpClient} from '@angular/common/http';
+import {ReviewsService} from '../_services/reviews.service';
+import {NotificationService} from '../_services/notification.service';
 
 @Component({
   selector: "app-reviews",
@@ -7,7 +13,32 @@ import { ViewEncapsulation } from "@angular/core";
   encapsulation: ViewEncapsulation.None
 })
 export class ReviewsComponent implements OnInit {
-  constructor() {}
+  reviews: ReviewModel[];
 
-  ngOnInit() {}
+  constructor(private ratingConfig: NgbRatingConfig, private httpClient: HttpClient, private reviewsService: ReviewsService, private notificationService: NotificationService) {
+    ratingConfig.max = 5;
+    ratingConfig.readonly = true;
+  }
+
+  ngOnInit() {
+    this.reviewsService.readReviews().subscribe(reviews =>
+      this.reviews = reviews
+    )
+  }
+
+  updateReviews() {
+    var response = true;
+    this.reviews.forEach(review => {
+      this.reviewsService.updateReview(review).subscribe((resp) => {
+        if (!resp) {
+          response = false;
+        }
+      });
+    });
+    if (response) {
+      this.notificationService.success('Recenzie boli aktualizované');
+    }else{
+      this.notificationService.error('Niečo sa pokazilo! Skúste neskôr prosím!');
+    }
+  }
 }

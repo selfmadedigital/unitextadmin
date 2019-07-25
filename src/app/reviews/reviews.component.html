@@ -27,7 +27,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr *ngFor="let review of reviews">
                 <td class="py-1">
                   <img
                     src="assets/images/faces-clipart/pic-1.png"
@@ -35,24 +35,27 @@
                   />
                 </td>
                 <td>
-                  Herman Beck
+                  {{review.user}}
                 </td>
                 <td>
-                  <ngb-rating class="rating"></ngb-rating>
+                  <ngb-rating class="rating" [rate]="review.rating"></ngb-rating>
                 </td>
                 <td>
-                  test
+                  <span placement="bottom" ngbTooltip="{{review.text}}">{{review.text | slice:0:30}}...</span>
                 </td>
                 <td>
-                  15 Máj, 2015
+                  {{review.date | date:'d.MM.yyyy'}}
                 </td>
                 <td>
-                  <ui-switch></ui-switch>
+                  <ui-switch [(ngModel)]="review.allowed"></ui-switch>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-primary btn-fw  pull-right" (click)="updateReviews()">Uložiť</button>
       </div>
     </div>
   </div>

@@ -17,9 +17,9 @@ export class MenuService {
     return this.httpClient.get<LinkModel[]>(environment.apiUrl + '/menu/');
   }
 
-  updateMenu(menu: LinkModel): Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(
-      environment.apiUrl + '/menu/', menu
+  updateMenu(menu: LinkModel): Observable<boolean> {
+    return this.httpClient.put<boolean>(
+      environment.apiUrl + '/menu', menu
     )
   }
 }

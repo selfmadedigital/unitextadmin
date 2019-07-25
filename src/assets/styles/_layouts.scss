@@ -6,6 +6,10 @@
   }
 }
 
+.footer{
+  width: 100vw;
+}
+
 :host-context(.sidebar-icon-only) {
   @media (min-width: 992px) {
     .navbar {
@@ -40,8 +44,11 @@
         }
       }
     }
+    .content-wrapper{
+      width: 100vw;
+    }
 
-    .content-wrapper,
+    .content-wrapper.logged,
     .footer {
       margin-left: $sidebar-width-icon;
       width: calc(100% - #{$sidebar-width-icon});
@@ -92,4 +99,25 @@
       }
     }
   }
+}
+
+.content-wrapper{
+  width: 100vw !important;
+
+  &.logged{
+    width: 100% !important;
+  }
+}
+
+.login-box{
+  height: 60vh;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.login-box form{
+  width: 100%;
 }

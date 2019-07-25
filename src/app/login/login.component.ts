@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import {AuthenticationService} from '../_services/authentication.service';
+import {NotificationService} from '../_services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit() {
@@ -40,7 +42,7 @@ export class LoginComponent implements OnInit {
           const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/dashboard';
           this.router.navigate([redirect]);
         } else {
-          this.loginError = 'Username or password is incorrect.';
+          this.notificationService.error('Nesprávne meno alebo heslo!')
         }
       },
       error => this.error = error

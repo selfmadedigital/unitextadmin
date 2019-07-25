@@ -6,11 +6,10 @@ import {NotificationService} from '../_services/notification.service';
 
 @Component({
   selector: 'app-services',
-  templateUrl: './services.component.html'
+  templateUrl: './services.component.html',
 })
 export class ServicesComponent implements OnInit {
   services: ServiceModel[];
-  errors: Array<Error> = [];
 
   constructor(
     private servicesService: ServicesService,
@@ -28,24 +27,23 @@ export class ServicesComponent implements OnInit {
   ngOnInit() {
     this.servicesService.readServices().subscribe((services: ServiceModel[]) => {
       this.services = services;
-      console.log(this.services);
     });
   }
 
   updateServices() {
+    var response = true;
     this.services.forEach(service => {
       this.servicesService.updateService(service).subscribe((resp) => {
-        if (!resp.success) {
-          this.errors.push(resp.error);
+        if (!resp) {
+          response = false;
         }
       });
     });
-    if (this.errors.length === 0){
-      this.notificationService.success('Služby boli aktualizované');
-    } else{
-      this.errors.forEach(value => {
-        this.notificationService.error(value.message);
-      })
+    if (response) {
+      this.notificationService.success('Menu bolo aktualizované');
+    }else{
+      this.notificationService.error('Niečo sa pokazilo! Skúste neskôr prosím!');
     }
   }
 }
+

@@ -34,19 +34,18 @@ export class PricesComponent implements OnInit {
   }
 
   updatePrices() {
+    var response = true;
     this.prices.forEach(price => {
       this.pricesService.updatePrice(price).subscribe((resp) => {
-        if (!resp.success) {
-          this.errors.push(resp.error);
+        if (!resp) {
+          response = false;
         }
       });
     });
-    if (this.errors.length === 0){
-      this.notificationService.success('Ceny boli aktualizované');
-    } else{
-      this.errors.forEach(value => {
-        this.notificationService.error(value.message);
-      })
+    if (response) {
+      this.notificationService.success('Menu bolo aktualizované');
+    }else{
+      this.notificationService.error('Niečo sa pokazilo! Skúste neskôr prosím!');
     }
   }
 }

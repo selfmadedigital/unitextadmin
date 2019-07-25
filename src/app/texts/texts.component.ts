@@ -37,19 +37,18 @@ export class TextsComponent implements OnInit {
   }
 
   updateTexts() {
+    var response = true;
     this.texts.forEach(text => {
       this.textsService.updateText(text).subscribe((resp) => {
-        if (!resp.success) {
-          this.errors.push(resp.error);
+        if (!resp) {
+          response = false;
         }
       });
     });
-    if (this.errors.length === 0){
-      this.notificationService.success('Texty boli aktualizované');
-    } else{
-      this.errors.forEach(value => {
-        this.notificationService.error(value.message);
-      })
+    if (response) {
+      this.notificationService.success('Menu bolo aktualizované');
+    }else{
+      this.notificationService.error('Niečo sa pokazilo! Skúste neskôr prosím!');
     }
   }
 }

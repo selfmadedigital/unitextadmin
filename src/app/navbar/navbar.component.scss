@@ -8,8 +8,12 @@
   background: #fff;
   .navbar-brand-wrapper {
     background: #fff;
-    width: $sidebar-width-lg;
+    width: 100%;
     height: $navbar-height;
+
+    &.logged{
+      width: $sidebar-width-lg;
+    }
     .navbar-brand {
       color: $black;
       font-size: 1.5rem;

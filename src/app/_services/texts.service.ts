@@ -15,8 +15,8 @@ export class TextsService {
     return this.httpClient.get<TextModel[]>(environment.apiUrl + '/content/')
   }
 
-  updateText(text: TextModel): Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(
+  updateText(text: TextModel): Observable<boolean> {
+    return this.httpClient.put<boolean>(
       environment.apiUrl + '/content/', text
     )
   }

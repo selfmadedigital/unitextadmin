@@ -33,19 +33,18 @@ export class MenuComponent implements OnInit {
   }
 
   updateMenu() {
+    var response = true;
     this.links.forEach(link => {
       this.menuService.updateMenu(link).subscribe((resp) => {
-        if (!resp.success) {
-          this.errors.push(resp.error);
+        if (!resp) {
+          response = false;
         }
       });
     });
-    if (this.errors.length === 0){
+    if (response) {
       this.notificationService.success('Menu bolo aktualizované');
-    } else{
-      this.errors.forEach(value => {
-        this.notificationService.error(value.message);
-      })
+    }else{
+      this.notificationService.error('Niečo sa pokazilo! Skúste neskôr prosím!');
     }
   }
 }

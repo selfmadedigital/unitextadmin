@@ -1,11 +1,10 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, LOCALE_ID } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-
 import { AppComponent } from "./app.component";
 import { NavbarComponent } from "./navbar/navbar.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
@@ -37,7 +36,9 @@ import { ContactComponent } from './contact/contact.component';
 import { NotificationComponent } from './_helpers/notification/notification.component';
 import {NotificationService} from './_services/notification.service';
 import {ImageUploadModule} from 'angular2-image-upload';
-import {FileSelectDirective} from 'ng2-file-upload';
+import {FileSelectDirective, FileUploadModule} from 'ng2-file-upload';
+import {AddHeaderInterceptor} from './_helpers/addheaderinterceptor';
+import {LocalizedDatePipe} from './_helpers/localized.data.pipe';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,7 @@ import {FileSelectDirective} from 'ng2-file-upload';
     PartnersComponent,
     ContactComponent,
     NotificationComponent,
-    FileSelectDirective
+    LocalizedDatePipe
   ],
   imports: [
     BrowserModule,
@@ -81,9 +82,15 @@ import {FileSelectDirective} from 'ng2-file-upload';
     ReactiveFormsModule,
     UiSwitchModule,
     ImageUploadModule.forRoot(),
+    FileUploadModule,
   ],
   providers: [
     NotificationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AddHeaderInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

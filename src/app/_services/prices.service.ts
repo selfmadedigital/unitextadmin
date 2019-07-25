@@ -14,12 +14,12 @@ export class PricesService {
   constructor(private httpClient: HttpClient) {}
 
   readPrices(): Observable<PriceModel[]> {
-    return this.httpClient.get<PriceModel[]>(environment.apiUrl + '/prices/')
+    return this.httpClient.get<PriceModel[]>(environment.apiUrl + '/price/')
   }
 
-  updatePrice(price: PriceModel): Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(
-      environment.apiUrl + '/prices/', price
+  updatePrice(price: PriceModel): Observable<boolean> {
+    return this.httpClient.put<boolean>(
+      environment.apiUrl + '/price/', price
     )
   }
 }

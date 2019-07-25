@@ -3,7 +3,7 @@
 >
   <div
     class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center"
-  >
+  [ngClass]="isLogged()">
     <a class="navbar-brand brand-logo" href="#">
       <img src="../../assets/images/logo-mini.png"/>
     </a>
@@ -11,7 +11,7 @@
       <img src="../../assets/images/logo-mini.png"/>
     </a>
   </div>
-  <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" (click)="toggleOffcanvas()" style="font-size: 200%;">
+  <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" (click)="toggleOffcanvas()" style="font-size: 200%;" *ngIf="isLogged()">
     <span class="mdi mdi-menu"></span>
   </button>
 </nav>

@@ -3,7 +3,7 @@
   <div class="container-fluid page-body-wrapper">
     <app-sidebar></app-sidebar>
     <div class="main-panel">
-      <div class="content-wrapper">
+      <div class="content-wrapper" [ngClass]="isLogged()">
         <app-notification></app-notification>
         <router-outlet></router-outlet>
       </div>

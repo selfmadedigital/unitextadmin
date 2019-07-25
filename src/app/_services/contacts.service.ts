@@ -14,12 +14,12 @@ export class ContactsService {
   constructor(private httpClient: HttpClient) { }
 
   readContacts(): Observable<ContactModel[]> {
-    return this.httpClient.get<ContactModel[]>(environment.apiUrl + '/contacts/')
+    return this.httpClient.get<ContactModel[]>(environment.apiUrl + '/contact/')
   }
 
-  updateContacts(contact: ContactModel): Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(
-      environment.apiUrl + '/contacts/', contact
+  updateContacts(contact: ContactModel): Observable<boolean> {
+    return this.httpClient.put<boolean>(
+      environment.apiUrl + '/contact/', contact
     )
   }
 }

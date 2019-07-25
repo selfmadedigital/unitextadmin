@@ -15,12 +15,24 @@ export class PartnersService {
   constructor(private httpClient: HttpClient) { }
 
   readPartners(): Observable<PartnerModel[]> {
-    return this.httpClient.get<PartnerModel[]>(environment.apiUrl + '/partners/');
+    return this.httpClient.get<PartnerModel[]>(environment.apiUrl + '/partner/');
   }
 
-  updatePartner(partner: PartnerModel): Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(
-      environment.apiUrl + '/partners/', partner
+  updatePartner(partner: PartnerModel): Observable<boolean> {
+    return this.httpClient.put<boolean>(
+      environment.apiUrl + '/partner/', partner
+    )
+  }
+
+  createPartner(partner: PartnerModel): Observable<boolean> {
+    return this.httpClient.post<boolean>(
+      environment.apiUrl + '/partner/', partner
+    )
+  }
+
+  removePartner(partner: PartnerModel): Observable<boolean> {
+    return this.httpClient.delete<boolean>(
+      environment.apiUrl + '/partner/' + partner.id
     )
   }
 }

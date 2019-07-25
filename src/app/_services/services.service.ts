@@ -14,12 +14,12 @@ export class ServicesService {
   constructor(private httpClient: HttpClient) {}
 
   readServices(): Observable<ServiceModel[]> {
-    return this.httpClient.get<ServiceModel[]>(environment.apiUrl + '/services/')
+    return this.httpClient.get<ServiceModel[]>(environment.apiUrl + '/service/')
   }
 
-  updateService(service: ServiceModel): Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(
-      environment.apiUrl + '/services/', service
+  updateService(service: ServiceModel): Observable<boolean> {
+    return this.httpClient.put<boolean>(
+      environment.apiUrl + '/service/', service
     )
   }
 }

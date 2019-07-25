@@ -15,11 +15,14 @@
               <th>
                 Odkaz
               </th>
+              <th>
+                Odstrániť
+              </th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let partner of partners">
-              <td class="py-1">
+              <td class="py-1 text-center">
                 <img src={{partner.image}} />
               </td>
               <td class="py-1">
@@ -27,6 +30,9 @@
               </td>
               <td class="py-1">
                 <input type="text" class="form-control" [(ngModel)]="partner.href" />
+              </td>
+              <td class="py-1">
+                <button class="btn btn-danger icon-btn" (click)="removePartner(partner)"><i class="fa fa-trash-o"></i></button>
               </td>
             </tr>
             </tbody>
@@ -45,7 +51,7 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <input type="file" class="form-control" name="photo" ng2FileSelect [uploader]="uploader" />
+        <input type="file" class="form-control" style="border: 0" name="photo" ng2FileSelect [uploader]="uploader" />
       </div>
       <div class="card-footer">
         <button type="button" class="btn btn-primary btn-fw"
