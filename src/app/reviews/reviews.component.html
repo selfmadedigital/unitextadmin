@@ -60,3 +60,29 @@
     </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <label _ngcontent-c5="" for="new-input-user">Užívateľ</label>
+            <input type="text" class="form-control" id="new-input-user" [(ngModel)]="newReview.user" />
+          </div>
+          <div class="col-md-2">
+            <label _ngcontent-c5="" for="new-input-rating">Hodnotenie</label>
+            <ngb-rating class="rating" [rate]="newReview.rating" id="new-input-rating"></ngb-rating>
+          </div>
+          <div class="col-md-6">
+            <label _ngcontent-c5="" for="new-input-text">Text</label>
+            <input type="text" class="form-control" [(ngModel)]="newReview.text" id="new-input-text" />
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-primary btn-fw  pull-right" (click)="createReview()">Pridať</button>
+      </div>
+    </div>
+  </div>
+</div>

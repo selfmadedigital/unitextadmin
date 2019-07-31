@@ -26,6 +26,7 @@ export class ContactComponent implements OnInit {
     var response = true;
     this.contacts.forEach(contact => {
       this.contactsService.updateContacts(contact).subscribe((resp) => {
+        console.log(resp);
         if (!resp) {
           response = false;
         }

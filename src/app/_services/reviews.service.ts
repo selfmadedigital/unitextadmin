@@ -25,6 +25,12 @@ export class ReviewsService {
     )
   }
 
+  createReview(review: ReviewModel): Observable<boolean> {
+    return this.httpClient.post<boolean>(
+      environment.apiUrl + '/review', review
+    )
+  }
+
   fetchReviews(): Observable<ReviewModel[]> {
     return this.httpClient.get<ReviewModel[]>(environment.apiUrl + '/review/all');
   }

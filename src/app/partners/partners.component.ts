@@ -63,7 +63,7 @@ export class PartnersComponent implements OnInit {
       });
     });
     if (response) {
-      this.notificationService.success('Menu bolo aktualizované');
+      this.notificationService.success('Partneri boli aktualizovaní');
     }else{
       this.notificationService.error('Niečo sa pokazilo! Skúste neskôr prosím!');
     }

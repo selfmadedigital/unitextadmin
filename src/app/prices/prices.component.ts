@@ -43,7 +43,7 @@ export class PricesComponent implements OnInit {
       });
     });
     if (response) {
-      this.notificationService.success('Menu bolo aktualizované');
+      this.notificationService.success('Cenník bol aktualizovaný');
     }else{
       this.notificationService.error('Niečo sa pokazilo! Skúste neskôr prosím!');
     }

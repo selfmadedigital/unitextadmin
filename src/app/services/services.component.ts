@@ -40,7 +40,7 @@ export class ServicesComponent implements OnInit {
       });
     });
     if (response) {
-      this.notificationService.success('Menu bolo aktualizované');
+      this.notificationService.success('Služby boli aktualizované');
     }else{
       this.notificationService.error('Niečo sa pokazilo! Skúste neskôr prosím!');
     }
