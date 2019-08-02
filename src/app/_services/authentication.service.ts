@@ -7,9 +7,8 @@ import {ResponseModel} from '../_models/response';
 import {Router} from '@angular/router';
 import {TextModel} from '../_models/text';
 import {environment} from '../../environments/environment';
-import {Md5} from 'ts-md5';
+import {AuthResponseModel} from '../_models/authresponse';
 
-const md5 = new Md5();
 
 @Injectable({
   providedIn: "root"
@@ -22,18 +21,19 @@ export class AuthenticationService {
   redirectUrl: string;
 
   login(username: string, password: string) {
-    return this.httpClient.post<User[]>(environment.apiUrl + '/user/', {username: username, password: md5.appendStr(password).end()})
-      .pipe(map(users => {
-        if (users && users.length === 1){
-          var user = users[0];
+    return this.httpClient.post<AuthResponseModel>(environment.authUrl + '/login', {username: username, password: password}).pipe(map(response => {
+      if (response.user && response.token) {
+        var user = response.user;
+        user.token = response.token;
+        localStorage.setItem('currentUser', JSON.stringify(response.user));
+      }
+      catchError(this.handleError)
+    }))
+  }
 
-          if (user && user.token) {
-            localStorage.setItem('currentUser', JSON.stringify(user));
-          }
-        }
-        }),
-        catchError(this.handleError)
-      );
+  getUserToken(){
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    return currentUser.token;
   }
 
 

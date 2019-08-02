@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LinkModel } from '../_models/link';
 import { HttpClient } from '@angular/common/http';
-import { ResponseModel } from '../_models/response';
-import {TextModel} from '../_models/text';
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -13,11 +11,11 @@ export class MenuService {
 
   constructor(private httpClient: HttpClient) { }
 
-  readMenu(): Observable<LinkModel[]> {
-    return this.httpClient.get<LinkModel[]>(environment.apiUrl + '/menu/');
+  readMenu(): Observable<Object[]> {
+    return this.httpClient.get<Object[]>(environment.apiUrl + '/menu/');
   }
 
-  updateMenu(menu: LinkModel): Observable<boolean> {
+  updateMenu(menu: Object): Observable<boolean> {
     return this.httpClient.put<boolean>(
       environment.apiUrl + '/menu', menu
     )
