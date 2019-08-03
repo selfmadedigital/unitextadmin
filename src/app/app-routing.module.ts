@@ -6,11 +6,11 @@ import { TextsComponent } from "./texts/texts.component";
 import { ReviewsComponent } from "./reviews/reviews.component";
 import { ServicesComponent } from "./services/services.component";
 import { LoginComponent } from "./login/login.component";
-import { AuthGuard } from "./_helpers/auth.guard";
 import { PricesComponent } from './prices/prices.component';
 import { MenuComponent } from './menu/menu.component';
 import { PartnersComponent } from './partners/partners.component';
 import { ContactComponent } from './contact/contact.component';
+import {AuthGuard} from './auth/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: "dashboard", pathMatch: "full"},

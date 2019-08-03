@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
-import {AuthenticationService} from '../_services/authentication.service';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -20,14 +20,14 @@ export class NavbarComponent implements OnInit {
     }
   }
   constructor(config: NgbDropdownConfig,
-              private authService: AuthenticationService) {
+              private authService: AuthService) {
     config.placement = 'bottom-right';
   }
   ngOnInit() {
   }
 
   isLogged(){
-    if (this.authService.isLoggedIn()){
+    if (this.authService.isAuthenticated()){
       return 'logged';
     }else{
       return '';

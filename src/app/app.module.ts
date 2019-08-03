@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule, LOCALE_ID } from "@angular/core";
+import {NgModule, LOCALE_ID, ErrorHandler} from '@angular/core';
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
@@ -37,8 +37,12 @@ import { NotificationComponent } from './_helpers/notification/notification.comp
 import {NotificationService} from './_services/notification.service';
 import {ImageUploadModule} from 'angular2-image-upload';
 import {FileSelectDirective, FileUploadModule} from 'ng2-file-upload';
-import {AddHeaderInterceptor} from './_helpers/addheaderinterceptor';
 import {LocalizedDatePipe} from './_helpers/localized.data.pipe';
+import {TokenInterceptor} from './auth/token.interceptor';
+import {STORAGE_SERVICE, StorageService} from './_services/storage.service';
+import { SESSION_STORAGE, StorageServiceModule } from 'angular-webstorage-service';
+import {NgxSmartModalModule} from 'ngx-smart-modal';
+
 
 @NgModule({
   declarations: [
@@ -70,7 +74,7 @@ import {LocalizedDatePipe} from './_helpers/localized.data.pipe';
     PartnersComponent,
     ContactComponent,
     NotificationComponent,
-    LocalizedDatePipe
+    LocalizedDatePipe,
   ],
   imports: [
     BrowserModule,
@@ -83,14 +87,21 @@ import {LocalizedDatePipe} from './_helpers/localized.data.pipe';
     UiSwitchModule,
     ImageUploadModule.forRoot(),
     FileUploadModule,
+    StorageServiceModule,
+    NgxSmartModalModule.forRoot()
   ],
   providers: [
     NotificationService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AddHeaderInterceptor,
-      multi: true,
-    }
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: STORAGE_SERVICE,
+      useExisting: SESSION_STORAGE
+    },
+    StorageService
   ],
   bootstrap: [AppComponent]
 })

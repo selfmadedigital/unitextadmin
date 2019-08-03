@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import {AuthenticationService} from '../_services/authentication.service';
 import {NotificationService} from '../_services/notification.service';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthenticationService,
+    private authService: AuthService,
     private notificationService: NotificationService
   ) { }
 
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
 
-    this.authService.logout();
+    // this.authService.logout();
   }
 
   get username() { return this.loginForm.get('username'); }
@@ -37,15 +37,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.authService.login(this.username.value, this.password.value).subscribe((data) => {
-        if (this.authService.isLoggedIn) {
-          const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/dashboard';
-          this.router.navigate([redirect]);
-        } else {
-          this.notificationService.error('Nesprávne meno alebo heslo!')
-        }
-      },
-      error => this.error = error
-    );
+    this.authService.login(this.username.value, this.password.value);
   }
 }

@@ -3,8 +3,14 @@
   <div class="container-fluid page-body-wrapper">
     <app-sidebar></app-sidebar>
     <div class="main-panel">
-      <div class="content-wrapper" [ngClass]="isLogged()">
+      <div class="content-wrapper" >
         <app-notification></app-notification>
+        <ngx-smart-modal #modal identifier="modal">
+          <h1>Title</h1>
+          <p>Some stuff...</p>
+
+          <button (click)="modal.close()">Close</button>
+        </ngx-smart-modal>
         <router-outlet></router-outlet>
       </div>
       <app-footer></app-footer>

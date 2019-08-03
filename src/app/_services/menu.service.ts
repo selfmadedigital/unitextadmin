@@ -3,22 +3,17 @@ import { Observable } from 'rxjs';
 import { LinkModel } from '../_models/link';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {AuthenticationService} from './authentication.service';
+import {AuthService} from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MenuService {
 
-  constructor(private httpClient: HttpClient, private authService: AuthenticationService) { }
+  constructor(private httpClient: HttpClient, private authService: AuthService) { }
 
   readMenu(): Observable<Object[]> {
-    var reqHeader = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.authService.getAuthorizationToken()
-    });
-
-    return this.httpClient.get<Object[]>(environment.apiUrl + '/menu/', {headers: reqHeader});
+    return this.httpClient.get<Object[]>(environment.apiUrl + '/menu/');
   }
 
   updateMenu(menu: Object): Observable<boolean> {

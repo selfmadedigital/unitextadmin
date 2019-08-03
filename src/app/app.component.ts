@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AuthenticationService} from './_services/authentication.service';
+import {AuthService} from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +9,11 @@ import {AuthenticationService} from './_services/authentication.service';
 export class AppComponent {
   title = 'star-admin-angular';
 
-  constructor(private authService: AuthenticationService){
-
+  constructor(private authService: AuthService){
   }
 
   isLogged(){
-    if (this.authService.isLoggedIn()){
+    if (!this.authService.isTokenExpired()){
       return 'logged';
     }else{
       return '';
