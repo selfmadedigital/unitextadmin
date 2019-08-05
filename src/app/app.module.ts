@@ -42,6 +42,7 @@ import {TokenInterceptor} from './auth/token.interceptor';
 import {STORAGE_SERVICE, StorageService} from './_services/storage.service';
 import { SESSION_STORAGE, StorageServiceModule } from 'angular-webstorage-service';
 import {NgxSmartModalModule} from 'ngx-smart-modal';
+import { PasswordComponent } from './password/password.component';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import {NgxSmartModalModule} from 'ngx-smart-modal';
     ContactComponent,
     NotificationComponent,
     LocalizedDatePipe,
+    PasswordComponent,
   ],
   imports: [
     BrowserModule,

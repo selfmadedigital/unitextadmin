@@ -6,6 +6,7 @@ import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import {StorageService} from '../_services/storage.service';
 import {Router} from '@angular/router';
+import {User} from '../_models/user';
 
 export const TOKEN_NAME: string = 'jwt_token';
 
@@ -16,7 +17,6 @@ export const TOKEN_NAME: string = 'jwt_token';
 export class AuthService {
 
   constructor(private httpClient: HttpClient, private storage: StorageService, private router: Router){
-
   }
 
   public getToken(): string {
@@ -52,10 +52,26 @@ export class AuthService {
   public login(username: string, password: string){
     return this.httpClient.post(
       environment.authUrl + '/login/', {"username":username, "password": password}
+    ).subscribe(value => console.log(value));
+
+      // this.storage.storeValue('token', response['token']);
+      // this.storage.setUsername(response['username'])
+      // this.router.navigate(['/dashboard']);
+  }
+
+  public checkPassword(password: string){
+    return this.httpClient.post(
+      environment.authUrl + '/password/', {"username":this.storage.getUsername(), "password": password}
     ).toPromise().then(response => {
-      this.storage.storeValue('token', response['token']);
-      this.storage.setUsername(response['username'])
-      this.router.navigate(['/dashboard']);
+      return response['valid'];
+    })
+  }
+
+  public changePassword(password: string){
+    return this.httpClient.put(
+      environment.authUrl + '/password/', {"username":this.storage.getUsername(), "password": password}
+    ).toPromise().then(response => {
+      return response;
     })
   }
 
