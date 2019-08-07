@@ -18,7 +18,7 @@ export class MenuService {
 
   updateMenu(menu: Object): Observable<boolean> {
     return this.httpClient.put<boolean>(
-      environment.apiUrl + '/menu', menu
+      environment.apiUrl + '/menu/' + menu['id'], menu
     )
   }
 }

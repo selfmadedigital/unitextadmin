@@ -17,7 +17,7 @@ export class TextsService {
 
   updateText(text: TextModel): Observable<boolean> {
     return this.httpClient.put<boolean>(
-      environment.apiUrl + '/content/', text
+      environment.apiUrl + '/content/' + text['id'], text
     )
   }
 

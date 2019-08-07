@@ -33,7 +33,7 @@ export class ReviewsComponent implements OnInit {
 
   createReview() {
     var response = true;
-    this.newReview.rating = 3;
+    this.newReview.date = new Date();
     this.reviewsService.createReview(this.newReview).subscribe((resp) => {
       if (!resp) {
         response = false;

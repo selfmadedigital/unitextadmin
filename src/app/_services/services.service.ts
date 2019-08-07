@@ -19,7 +19,7 @@ export class ServicesService {
 
   updateService(service: ServiceModel): Observable<boolean> {
     return this.httpClient.put<boolean>(
-      environment.apiUrl + '/service/', service
+      environment.apiUrl + '/service/' + service['id'], service
     )
   }
 }

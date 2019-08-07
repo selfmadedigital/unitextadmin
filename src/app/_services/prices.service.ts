@@ -19,7 +19,7 @@ export class PricesService {
 
   updatePrice(price: PriceModel): Observable<boolean> {
     return this.httpClient.put<boolean>(
-      environment.apiUrl + '/price/', price
+      environment.apiUrl + '/price/' + price['id'], price
     )
   }
 }

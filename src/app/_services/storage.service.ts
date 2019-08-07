@@ -7,7 +7,7 @@ export const STORAGE_SERVICE = new InjectionToken<StorageService>('STORAGE_SERVI
 @Injectable()
 export class StorageService {
 
-  private username = new BehaviorSubject<string>('');
+  private realusername = new BehaviorSubject<string>('');
 
   constructor(@Inject(STORAGE_SERVICE) private storage: StorageService) {
     localStorage.clear();
@@ -25,11 +25,11 @@ export class StorageService {
     localStorage.removeItem(key);
   }
 
-  public setUsername(username: string){
-    this.username.next(username);
+  public setRealUsername(realusername: string){
+    this.realusername.next(realusername);
   }
 
-  public getUsername(){
-    return this.username;
+  public getRealUsername(){
+    return this.realusername;
   }
 }

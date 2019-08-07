@@ -66,15 +66,15 @@
     <div class="card">
       <div class="card-body">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-4 form-group">
             <label _ngcontent-c5="" for="new-input-user">Užívateľ</label>
             <input type="text" class="form-control" id="new-input-user" [(ngModel)]="newReview.user" />
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 form-group">
             <label _ngcontent-c5="" for="new-input-rating">Hodnotenie</label>
-            <ngb-rating class="rating" [rate]="newReview.rating" id="new-input-rating"></ngb-rating>
+            <ngb-rating class="rating form-control" [(ngModel)]="newReview.rating" [rate]="newReview.rating" id="new-input-rating"></ngb-rating>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 form-group">
             <label _ngcontent-c5="" for="new-input-text">Text</label>
             <input type="text" class="form-control" [(ngModel)]="newReview.text" id="new-input-text" />
           </div>

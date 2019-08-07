@@ -25,7 +25,11 @@ export class AuthService {
 
   public isAuthenticated(): boolean {
     const token = this.getToken();
-    return token != null ? true : false;
+    if(token == null){
+      return false;
+    }else {
+      return !this.isTokenExpired(token);
+    }
   }
 
   getTokenExpirationDate(token: string): Date {
@@ -38,8 +42,7 @@ export class AuthService {
     return date;
   }
 
-  isTokenExpired(token?: string): boolean {
-    if(!token) token = this.getToken();
+  isTokenExpired(token: string): boolean {
     if(!token || token === undefined){
       return true;
     }else{
@@ -52,24 +55,17 @@ export class AuthService {
   public login(username: string, password: string){
     return this.httpClient.post(
       environment.authUrl + '/login/', {"username":username, "password": password}
-    ).subscribe(value => console.log(value));
-
-      // this.storage.storeValue('token', response['token']);
-      // this.storage.setUsername(response['username'])
-      // this.router.navigate(['/dashboard']);
-  }
-
-  public checkPassword(password: string){
-    return this.httpClient.post(
-      environment.authUrl + '/password/', {"username":this.storage.getUsername(), "password": password}
-    ).toPromise().then(response => {
-      return response['valid'];
-    })
+    ).subscribe(response => {
+      this.storage.storeValue('token', response['token']);
+      this.storage.storeValue('username', response['username']);
+      this.storage.setRealUsername(response['realname'])
+      this.router.navigate(['/dashboard']);
+    });
   }
 
   public changePassword(password: string){
     return this.httpClient.put(
-      environment.authUrl + '/password/', {"username":this.storage.getUsername(), "password": password}
+      environment.authUrl + '/password/', {"username":this.storage.getValue('username'), "password": password}
     ).toPromise().then(response => {
       return response;
     })
@@ -77,7 +73,8 @@ export class AuthService {
 
   public logout(){
     this.storage.removeValue('token');
-    this.storage.setUsername('')
+    this.storage.removeValue('username');
+    this.storage.setRealUsername('');
     this.router.navigate(['/login']);
   }
 }

@@ -13,7 +13,7 @@ export class AppComponent {
   }
 
   isLogged(){
-    if (!this.authService.isTokenExpired()){
+    if (this.authService.isAuthenticated()){
       return 'logged';
     }else{
       return '';

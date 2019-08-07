@@ -20,7 +20,7 @@ export class PartnersService {
 
   updatePartner(partner: PartnerModel): Observable<boolean> {
     return this.httpClient.put<boolean>(
-      environment.apiUrl + '/partner/', partner
+      environment.apiUrl + '/partner/' + partner['id'], partner
     )
   }
 

@@ -23,7 +23,7 @@
             <tbody>
             <tr *ngFor="let partner of partners">
               <td class="py-1 text-center">
-                <img src={{partner.image}} />
+                <img src={{imagePath}}{{partner.image}} />
               </td>
               <td class="py-1">
                 <input type="text" class="form-control" [(ngModel)]="partner.name" />
@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="card-footer">
-        <button class="btn btn-primary btn-fw" type="button" (click)="updatePartners()">Uložiť</button>
+        <button class="btn btn-primary btn-fw pull-right" type="button" (click)="updatePartners()">Uložiť</button>
       </div>
     </div>
   </div>
@@ -54,7 +54,7 @@
         <input type="file" class="form-control" style="border: 0" name="photo" ng2FileSelect [uploader]="uploader" />
       </div>
       <div class="card-footer">
-        <button type="button" class="btn btn-primary btn-fw"
+        <button type="button" class="btn btn-primary btn-fw pull-right"
                 (click)="uploader.uploadAll()"
                 [disabled]="!uploader.getNotUploadedItems().length">
           Nahrať logo

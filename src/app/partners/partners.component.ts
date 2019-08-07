@@ -1,9 +1,10 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { PartnerModel } from '../_models/partner';
 import { PartnersService } from '../_services/partners.service';
-import {NotificationService} from '../_services/notification.service';
-import {environment} from '../../environments/environment';
+import { NotificationService } from '../_services/notification.service';
+import { environment } from '../../environments/environment';
 import {FileItem, FileUploader} from 'ng2-file-upload';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-partners',
@@ -13,25 +14,27 @@ import {FileItem, FileUploader} from 'ng2-file-upload';
 export class PartnersComponent implements OnInit {
 
   partners: PartnerModel[];
+  imagePath: string;
   errors: Array<Error> = [];
-  public uploader:FileUploader = new FileUploader({url: environment.apiUrl + '/upload/', itemAlias: 'logo'});
+  public uploader:FileUploader = new FileUploader({url: environment.apiUrl + '/upload/',
+    itemAlias: 'image',
+    authTokenHeader: "Authorization",
+    authToken: 'Bearer ' + this.authService.getToken() });
 
   constructor(private partnersService: PartnersService,
               private notificationService: NotificationService,
-              private changeDetectorRef: ChangeDetectorRef) {
-
+              private changeDetectorRef: ChangeDetectorRef,
+              private authService: AuthService) {
+    this.imagePath = environment.baseUrl;
   }
 
   ngOnInit() {
     this.loadPartners();
 
     this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; };
-    //overide the onCompleteItem property of the uploader so we are
-    //able to deal with the server response.
     this.uploader.onCompleteItem = (item:FileItem, response:any, status:any, headers:any) => {
       if(status === 200){
-        let uploadPath = JSON.parse(response).data.name.split('/');
-        this.createPartner(uploadPath[uploadPath.length - 1]);
+        this.createPartner(JSON.parse(response)['file']);
       }
     };
   }
@@ -44,7 +47,7 @@ export class PartnersComponent implements OnInit {
 
   createPartner(image: string) {
     let partner = new PartnerModel();
-    partner.image = environment.apiUrl + '/' + image;
+    partner.image = image;
     this.partnersService.createPartner(partner).subscribe(resp => {
       if(resp){
         this.loadPartners();
@@ -71,7 +74,7 @@ export class PartnersComponent implements OnInit {
 
   removePartner(partner: PartnerModel){
       this.partnersService.removePartner(partner).subscribe((resp) => {
-        if (resp) {
+        if (resp['status'] == 'ok') {
           this.notificationService.success('Partner bol odstránený');
           this.loadPartners();
         }else{

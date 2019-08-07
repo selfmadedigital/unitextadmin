@@ -21,7 +21,7 @@ export class ReviewsService {
 
   updateReview(review: ReviewModel): Observable<boolean> {
     return this.httpClient.put<boolean>(
-      environment.apiUrl + '/review/', review
+      environment.apiUrl + '/review/' + review['id'], review
     )
   }
 

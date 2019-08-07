@@ -19,7 +19,7 @@ export class ContactsService {
 
   updateContacts(contact: ContactModel): Observable<boolean> {
     return this.httpClient.put<boolean>(
-      environment.apiUrl + '/contact/', contact
+      environment.apiUrl + '/contact/' + contact['id'], contact
     )
   }
 }

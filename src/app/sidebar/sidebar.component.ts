@@ -18,11 +18,11 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.storage.getUsername().subscribe(value => this.username = value);
+    this.storage.getRealUsername().subscribe(value => this.username = value);
   }
 
   isLogged() {
-    return !this.authService.isTokenExpired();
+    return this.authService.isAuthenticated();
   }
 
   logout() {

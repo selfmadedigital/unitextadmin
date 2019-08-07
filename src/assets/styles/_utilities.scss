@@ -188,3 +188,11 @@ $value in $theme-colors {
     @include bg-inverse-variant($value);
   }
 }
+
+ngb-rating:focus{
+  outline: none;
+}
+
+ngb-rating.form-control{
+  border: none;
+}
