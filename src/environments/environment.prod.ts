@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  baseUrl: "http://api.unitext.sk/",
-  apiUrl: "https://api.unitext.sk/api/",
-  authUrl: "https://api.unitext.sk/auth/",
+  baseUrl: "http://api.unitext.sk",
+  apiUrl: "http://api.unitext.sk/api",
+  authUrl: "http://api.unitext.sk/auth",
 };
