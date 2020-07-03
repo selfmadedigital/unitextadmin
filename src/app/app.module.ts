@@ -43,6 +43,7 @@ import {STORAGE_SERVICE, StorageService} from './_services/storage.service';
 import { SESSION_STORAGE, StorageServiceModule } from 'angular-webstorage-service';
 import {NgxSmartModalModule} from 'ngx-smart-modal';
 import { PasswordComponent } from './password/password.component';
+import { LanguageFilterPipe } from './language-filter.pipe';
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import { PasswordComponent } from './password/password.component';
     NotificationComponent,
     LocalizedDatePipe,
     PasswordComponent,
+    LanguageFilterPipe,
   ],
   imports: [
     BrowserModule,

@@ -13,17 +13,10 @@ import {NotificationService} from '../_services/notification.service';
 export class MenuComponent implements OnInit {
   links: LinkModel[];
   errors: Array<Error> = [];
+  filterargs = {language: 'sk'};
 
   constructor(private menuService: MenuService,
               private notificationService: NotificationService) {
-  }
-
-  filterSK(text: TextModel) {
-    return text.lang === 'sk';
-  }
-
-  filterCZ(text: TextModel) {
-    return text.lang === 'cz';
   }
 
   ngOnInit() {

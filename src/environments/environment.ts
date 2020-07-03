@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  baseUrl: "http://localhost:8000/",
-  apiUrl: "http://localhost:8000/api",
-  authUrl: "http://localhost:8000/auth"
+  baseUrl: "http://api.unitext.sk",
+  apiUrl: "http://api.unitext.sk/api",
+  authUrl: "http://api.unitext.sk/auth",
 };
 
 /*

@@ -6,6 +6,7 @@
           <ngb-tab title="SK">
             <span class="flag-icon flag-icon-sk flag-icon-squared"></span>
             <span class="flag-icon flag-icon-gr flag-icon-squared"></span>
+            <span class="flag-icon flag-icon-en flag-icon-squared"></span>
             <ng-template ngbTabContent>
               <div class="table-responsive">
                 <table class="table table-striped">
@@ -20,7 +21,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let link of links | callback: filterSK">
+                    <tr *ngFor="let link of links | languageFilter:filterargs">
                       <td class="py-1">
                         {{link.href}}
                       </td>
@@ -48,7 +49,35 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let link of links | callback: filterCZ">
+                    <tr *ngFor="let link of links | languageFilter:filterargs">
+                      <td class="py-1">
+                        {{link.href}}
+                      </td>
+                      <td class="py-1">
+                        <input type="text" class="form-control" [(ngModel)]="link.text" #text="ngModel" required maxlength="100" [class.border-danger]="text.invalid && (text.dirty || text.touched)" />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="EN">
+            <ng-template ngbTabContent>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>
+                        Link
+                      </th>
+                      <th>
+                        Text
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let link of links | languageFilter:filterargs">
                       <td class="py-1">
                         {{link.href}}
                       </td>

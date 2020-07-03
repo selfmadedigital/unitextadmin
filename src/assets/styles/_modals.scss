@@ -23,3 +23,7 @@
     }
   }
 }
+
+.modal-footer{
+  padding: $modal-inner-padding - $modal-footer-margin-between / 2;
+}
