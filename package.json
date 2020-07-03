@@ -6,6 +6,7 @@
     "start": "node server.js",
     "build": "ng build --prod",
     "test": "ng test",
+    "tc-test": "ng test --single-run --reporters=teamcity",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "ng build --aot --prod"
