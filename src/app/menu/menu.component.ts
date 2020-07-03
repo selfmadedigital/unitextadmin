@@ -13,7 +13,7 @@ import {NotificationService} from '../_services/notification.service';
 export class MenuComponent implements OnInit {
   links: LinkModel[];
   errors: Array<Error> = [];
-  filterargs = {language: 'sk'};
+  filterargs = 'sk';
 
   constructor(private menuService: MenuService,
               private notificationService: NotificationService) {
