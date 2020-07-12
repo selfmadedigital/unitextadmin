@@ -11,7 +11,7 @@ import {NotificationService} from '../_services/notification.service';
 })
 export class PricesComponent implements OnInit {
 
-  prices: PriceModel[];
+  list: PriceModel[];
   errors: Array<Error> = [];
 
   constructor(
@@ -19,23 +19,15 @@ export class PricesComponent implements OnInit {
     private notificationService: NotificationService
   ) {}
 
-  filterSK(price: PriceModel) {
-    return price.lang === 'sk';
-  }
-
-  filterCZ(price: PriceModel) {
-    return price.lang === 'cz';
-  }
-
   ngOnInit() {
     this.pricesService.readPrices().subscribe((prices: PriceModel[]) => {
-      this.prices = prices;
+      this.list = prices;
     });
   }
 
   updatePrices() {
     var response = true;
-    this.prices.forEach(price => {
+    this.list.forEach(price => {
       this.pricesService.updatePrice(price).subscribe((resp) => {
         if (!resp) {
           response = false;

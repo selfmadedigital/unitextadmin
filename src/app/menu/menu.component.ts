@@ -10,10 +10,11 @@ import {NotificationService} from '../_services/notification.service';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
+
+
 export class MenuComponent implements OnInit {
-  links: LinkModel[];
+  list: LinkModel[];
   errors: Array<Error> = [];
-  filterargs = 'sk';
 
   constructor(private menuService: MenuService,
               private notificationService: NotificationService) {
@@ -21,13 +22,13 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.menuService.readMenu().subscribe((links: LinkModel[]) => {
-      this.links = links;
+      this.list = links;
     });
   }
 
   updateMenu() {
     var response = true;
-    this.links.forEach(link => {
+    this.list.forEach(link => {
       this.menuService.updateMenu(link).subscribe((resp) => {
         if (!resp) {
           response = false;

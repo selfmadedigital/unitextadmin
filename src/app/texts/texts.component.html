@@ -5,24 +5,32 @@
         <ngb-tabset class="tab-basic">
           <ngb-tab title="SK">
             <ng-template ngbTabContent>
-              <div class="form-group" *ngFor="let text of texts | callback: filterSK">
+              <div class="form-group" *ngFor="let text of list | languageFilter:'sk'">
                 <label for="input_sk_{{text.id}}">{{text.section}}</label>
-                <input id="input_sk_{{text.id}}" type="text" class="form-control" [(ngModel)]="text.content" #content="ngModel" required maxlength="3000" [class.border-danger]="content.invalid && (content.dirty || content.touched)" />
+                <input #content="ngModel" [(ngModel)]="text.content" [class.border-danger]="content.invalid && (content.dirty || content.touched)" class="form-control" id="input_sk_{{text.id}}" maxlength="3000" required type="text" />
               </div>
             </ng-template>
           </ngb-tab>
           <ngb-tab title="CZ">
             <ng-template ngbTabContent>
-              <div class="form-group" *ngFor="let text of texts | callback: filterCZ">
+              <div class="form-group" *ngFor="let text of list | languageFilter:'cz'">
                 <label for="input_cz_{{text.id}}">{{text.section}}</label>
-                <input id="input_cz_{{text.id}}" type="text" class="form-control" [(ngModel)]="text.content" #content="ngModel" required maxlength="3000" [class.border-danger]="content.invalid && (content.dirty || content.touched)" />
+                <input #content="ngModel" [(ngModel)]="text.content" [class.border-danger]="content.invalid && (content.dirty || content.touched)" class="form-control" id="input_cz_{{text.id}}" maxlength="3000" required type="text" />
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="EN">
+            <ng-template ngbTabContent>
+              <div class="form-group" *ngFor="let text of list | languageFilter:'en'">
+                <label for="input_cz_{{text.id}}">{{text.section}}</label>
+                <input #content="ngModel" [(ngModel)]="text.content" [class.border-danger]="content.invalid && (content.dirty || content.touched)" class="form-control" id="input_cz_{{text.id}}" maxlength="3000" required type="text" />
               </div>
             </ng-template>
           </ngb-tab>
         </ngb-tabset>
       </div>
       <div class="card-footer">
-        <button type="button" class="btn btn-primary btn-fw  pull-right" (click)="updateTexts()">Uložiť</button>
+        <button (click)="updateTexts()" class="btn btn-primary btn-fw  pull-right" type="button">Uložiť</button>
       </div>
     </div>
   </div>

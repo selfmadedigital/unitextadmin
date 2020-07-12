@@ -9,30 +9,22 @@ import {NotificationService} from '../_services/notification.service';
   templateUrl: './services.component.html',
 })
 export class ServicesComponent implements OnInit {
-  services: ServiceModel[];
+  list: ServiceModel[];
 
   constructor(
     private servicesService: ServicesService,
     private notificationService: NotificationService
   ) {}
 
-  filterSK(service: ServiceModel) {
-    return service.lang === 'sk';
-  }
-
-  filterCZ(service: ServiceModel) {
-    return service.lang === 'cz';
-  }
-
   ngOnInit() {
     this.servicesService.readServices().subscribe((services: ServiceModel[]) => {
-      this.services = services;
+      this.list = services;
     });
   }
 
   updateServices() {
     var response = true;
-    this.services.forEach(service => {
+    this.list.forEach(service => {
       this.servicesService.updateService(service).subscribe((resp) => {
         if (!resp) {
           response = false;

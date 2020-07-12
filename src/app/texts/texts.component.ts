@@ -14,31 +14,22 @@ import {NotificationService} from '../_services/notification.service';
   templateUrl: './texts.component.html'
 })
 export class TextsComponent implements OnInit {
-  texts: TextModel[];
+  list: TextModel[];
   errors: Array<Error> = [];
 
 
   constructor(private textsService: TextsService,
               private notificationService: NotificationService) {}
 
-
-  filterSK(text: TextModel) {
-    return text.lang === 'sk';
-  }
-
-  filterCZ(text: TextModel) {
-    return text.lang === 'cz';
-  }
-
   ngOnInit() {
     this.textsService.readTexts().subscribe((texts: TextModel[]) => {
-      this.texts = texts;
+      this.list = texts;
     });
   }
 
   updateTexts() {
     var response = true;
-    this.texts.forEach(text => {
+    this.list.forEach(text => {
       this.textsService.updateText(text).subscribe((resp) => {
         if (!resp) {
           response = false;

@@ -23,7 +23,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let service of services | callback: filterSK">
+                  <tr *ngFor="let service of list | languageFilter:'sk'" cdkDrag>
                     <td class="text-center">
                       <i class="icon icon-{{service.icon}}" style="font-size: 200%;"></i>
                     </td>
@@ -57,7 +57,43 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let service of services | callback: filterCZ" cdkDrag>
+                  <tr *ngFor="let service of list | languageFilter:'cz'" cdkDrag>
+                    <td class="text-center">
+                      <i class="icon icon-{{service.icon}}" style="font-size: 200%;"></i>
+                    </td>
+                    <td class="py-1">
+                      <input type="text" class="form-control" [(ngModel)]="service.title" #title="ngModel" required maxlength="300" [class.border-danger]="title.invalid && (title.dirty || title.touched)" />
+                    </td>
+                    <td>
+                      <textarea class="form-control" rows="5" [(ngModel)]="service.content" #content="ngModel" required maxlength="3000" [class.border-danger]="content.invalid && (content.dirty || content.touched)"></textarea>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="SK">
+            <span class="flag-icon flag-icon-sk flag-icon-squared"></span>
+            <span class="flag-icon flag-icon-gr flag-icon-squared"></span>
+            <ng-template ngbTabContent>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                  <tr>
+                    <th>
+                      Ikona
+                    </th>
+                    <th>
+                      Názov
+                    </th>
+                    <th>
+                      Obsah
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let service of list | languageFilter:'en'" cdkDrag>
                     <td class="text-center">
                       <i class="icon icon-{{service.icon}}" style="font-size: 200%;"></i>
                     </td>

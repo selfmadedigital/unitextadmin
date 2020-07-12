@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
   name: 'languageFilter',
@@ -6,15 +6,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class LanguageFilterPipe implements PipeTransform {
 
-  transform(items: any[], language: string): any {
-    if (!items || !language) {
-      return items;
+  transform(list: any, lang: string): any[] {
+    try {
+      return list.filter((listing: any) => listing.lang === lang);
+    }catch (e) {
     }
-    // filter items array, items which match and return true will be
-    // kept, false will be filtered out
-    return items.filter(function(item) {
-      return item.language === language;
-    });
   }
-
 }
